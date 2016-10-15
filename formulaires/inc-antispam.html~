@@ -1,0 +1,5 @@
+
+<BOUCLE_antispam(ARTICLES){id_article=#ENV*{antispam_id}}>
+<label for="antispam">#TEXTE</label>
+</BOUCLE_antispam>
+<input type="text" name="antispam" id="antispam" value="[(#ENV{antispam})]" size="8"/>

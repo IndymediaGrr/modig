@@ -1,0 +1,75 @@
+#CACHE{86400}
+
+<form id="formulaire" class="openpublishing" action="#SELF" method="post" name="formulaire_proposer_evenement" enctype="multipart/form-data">
+
+   [(#ENV*{previsu})]
+
+   [<div id="erreur" class="erreur"><p>(#ENV*{error})</p></div>]
+    <div id="form_doctheme" class="field-group">
+       <fieldset>
+           <legend>Lieu</legend>
+           <input id="autre_lieu" name="autre_lieu" value="#ENV*{autre_lieu}" type="text" style="width:17em;" />
+       </fieldset>
+       <fieldset>
+           <legend>Date</legend>
+           <label for="date">Le&nbsp;</label>
+           <input type="text" name="jour" value="#ENV*{jour}" size="2" maxlength="2"/>
+           <input type="text" name="mois" value="#ENV*{mois}" size="2" maxlength="2"/>
+           <input type="text" name="annee" value="#ENV*{annee}" size="4" maxlength="4"/>
+       </fieldset>
+       <fieldset>
+           <legend>Horaire</legend>
+           <input type="radio" name="journee" value="off" [(#ENV*{journee}|!={'on'}|?{checked})]>à</input>
+           <input type="text" name="heure" value="#ENV*{heure}" size="2" maxlength="2"
+           />:<input type="text" name="minute" value="#ENV*{minute}" size="2" maxlength="2"/>
+           </input>
+           <br/><input type="radio" name="journee" value="on" [(#ENV*{journee}|=={'on'}|?{checked})]>Toute la journée</input>
+       </fieldset>
+       <fieldset style="text-align:right">
+          <legend>Identification [optionnelle]</legend>
+          <label for="nom">Auteur·e&nbsp;:</label>
+          <input class="nom" type="text" name="nom" id="nom" size="15" value="[(#ENV*{nom})]"
+          /><br/>
+          <label for="email">Email&nbsp;:</label>
+          <input type="text" name="email" id="email" size="15" value="[(#ENV*{email})]" />
+       </fieldset>
+       <fieldset>
+            <legend>Pour éviter les robots</legend>
+           <INCLURE{fond=formulaires/inc-antispam}{antispam}{antispam_id}>
+       </fieldset>
+
+   </div>
+  <div id ="form_contenu" class="field-group">
+       <fieldset>
+           <legend>Contenu</legend>
+           <label for="titre">Titre :</label>
+           <input type="text" name="titre" value="[(#ENV**{titre})]" maxLength="80" style="width: 88%;"/>
+           <div>
+               <INCLURE{fond=formulaires/inc-barreoutils}{champs-id='texte'}>
+               <textarea id="texte" name="texte" rows="20" cols="60" style="width: 97%;"
+                   onselect="storeCaret(this);" onclick="storeCaret(this);"
+                   onkeyup="storeCaret(this);">[(#ENV**{texte}|entites_html)]</textarea>
+           </div>
+       </fieldset>
+       <fieldset>
+           <legend>Document(s) joint(s)</legend>
+           <div id="form-documents" >
+               <INCLURE{fond=formulaires/documents}{id_article=#ENV*{id_article}}>
+           </div>
+       </fieldset>
+   </div>
+   <div class="block-pied" style="text-align: center;">
+       <input type="hidden" id="id_article" name="id_article" value="[(#ENV**{id_article})]"/>
+       <input type="hidden" id="id_auteur" name="id_auteur" value="[(#ENV**{id_auteur})]"/>
+       <input type="hidden" name="url_site" value="[(#URL_SITE_SPIP)]"/>
+       <BOUCLE_ag(RUBRIQUES){titre=Agenda}>
+       <input type="hidden" name="rub" value="#ID_RUBRIQUE" />
+       </BOUCLE_ag>
+
+       <div id="submit-buttons">
+           <input type="submit" id="previsualiser" name="previsualiser" value="Prévisualiser" />
+           <input type="submit" id="valider" name="valider" value="Publier" />
+       </div>
+   </div>
+</form>
+

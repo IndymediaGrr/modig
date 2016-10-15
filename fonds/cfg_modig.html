@@ -1,0 +1,63 @@
+<!-- descriptif=
+<h4>
+Ici vous pouvez configurer le plugin modig.
+</h4>
+-->
+
+<!-- titre=Modig-->
+
+#CACHE{0}
+
+<form method="post" action="#SELF">[<div>(#ENV{_cfg_}|form_hidden)</div>]
+
+    <fieldset><legend>Questions mystères</legend>
+        <p>
+        <label>Rubrique contenant les questions mystères : </label>
+        <select name="qmysteres_rub">
+            <BOUCLE_secteurs(RUBRIQUES) {racine} {par titre}>
+            <option value="#ID_RUBRIQUE" [(#CONFIG{modig/qmysteres_rub}|=={#ID_RUBRIQUE}|?{selected="selected",''})]>#ID_RUBRIQUE : #TITRE</option>
+            <BOUCLE_rubriques(RUBRIQUES) {id_parent} {par titre}>
+            <option value="#ID_RUBRIQUE" [(#CONFIG{modig/qmysteres_rub}|=={#ID_RUBRIQUE}|?{selected="selected",''})]>#ID_RUBRIQUE : #TITRE</option>
+            <BOUCLE_sous_rubriques(BOUCLE_rubriques)></BOUCLE_sous_rubriques>
+            </BOUCLE_rubriques>
+            </BOUCLE_secteurs>
+        </select>
+        </p>
+    </fieldset>
+
+    <fieldset><legend>Classements des articles</legend>
+        <p>
+        <label>Thème par défaut : </label>
+        <select name="theme_par_defaut">
+            <BOUCLE_themes(MOTS){type = themes}{par titre}>
+            <option value="#ID_MOT" [(#CONFIG{modig/theme_par_defaut}|=={#ID_MOT}|?{selected="selected",''})]>#TITRE</option>
+            </BOUCLE_themes>
+        </select>
+        </p>
+        <p>
+        <label>Portée défaut : </label>
+        <select name="portee_par_defaut">
+            <BOUCLE_portees(MOTS){type = portees}{par titre}>
+            <option value="#ID_MOT" [(#CONFIG{modig/portee_par_defaut}|=={#ID_MOT}|?{selected="selected",''})]>#TITRE</option>
+            </BOUCLE_portees>
+        </select>
+        </p>
+    </fieldset>
+
+    <fieldset><legend>Modération</legend>
+        <p>
+        <label>Durée de conservation des actions de modération :
+            <input type="text" name="duree_conservation" value="[(#CONFIG{modig/duree_conservation})]" size="3" class="fondl" />
+            jours</label>
+        </p>
+    </fieldset>
+
+    
+
+    <div>
+        <input type="submit" name="_cfg_ok" value="<:oK:>" class="fondo" />
+        <input type="reset" value="<:reset:>" class="fondo" />
+        <input type="submit" name="_cfg_delete" value="<:supprimer:>" class="fondo" />
+    </div>
+</form>
+

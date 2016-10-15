@@ -1,0 +1,35 @@
+
+	  <input type='hidden' name='titre' value="#ENV{titre}" />
+	  <input type='hidden' name='texte' value="#ENV{texte}" />
+	  <input type='hidden' name='url_site' value="#ENV{url_site}" />
+	  <input type='hidden' name='nom_site' value="#ENV{nom_site}" />
+	  <input type='hidden' name='antispam' value="#ENV{antispam}" />
+
+<input id="autre_lieu" name="autre_lieu" value="#ENV*{autre_lieu}" type="hidden"  />
+  <input type="hidden" name="jour" value="#ENV*{jour}" size="2" maxlength="2"/>
+           <input type="hidden" name="mois" value="#ENV*{mois}" size="2" maxlength="2"/>
+           <input type="hidden" name="annee" value="#ENV*{annee}" size="4" maxlength="4"/>
+           <br/>
+
+[ 
+<input type="hidden" name="journee" value="(#ENV*{journee}|=={'on'}|?{'on'})"/>]
+[ 
+<input type="hidden" name="journee" value="(#ENV*{journee}|=={'off'}|?{'off'})"/>
+
+           <input type="hidden" name="heure" value="#ENV*{heure}" size="2" maxlength="2"
+           /><input type="hidden" name="minute" value="#ENV*{minute}" size="2" maxlength="2"/>
+           
+
+
+]
+
+
+          <input class="nom" type="hidden" name="nom" id="nom"  value="[(#ENV*{nom})]" />
+          <input type="hidden" name="email" id="email"  value="[(#ENV*{email})]" />
+
+   [
+<INCLURE{fond="formulaires/inc-article-ajouter-mot"}{env}>
+	  (#ENV*{erreurs}|table_valeur{previsu})
+	<input type="submit" class="submit" name="valider" value="Publier l'article" />
+	
+]	

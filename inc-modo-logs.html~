@@ -1,0 +1,61 @@
+#CACHE{0}
+<?php
+if (autoriser('modifier','article'))
+//if ($auteur_session)
+{
+/*
+ * Du beau bourin efficace en attendant le passage à SPIP 2
+ */
+$query = "
+   SELECT logs.`instant`,
+          auteurs.`nom`,
+          logs.`statut`,
+          logs.`desc`,
+          logs.`type`,
+          logs.`id`,
+          (CASE logs.`type`
+            WHEN 'art' THEN articles.`url_propre`
+            WHEN 'evt' THEN articles.`url_propre`
+            WHEN 'cmp' THEN CONCAT(fart.`url_propre`, '#forum', logs.`id`)
+           ELSE '#'
+          END) AS url
+     FROM `logs_mode` AS logs 
+LEFT JOIN spip_articles as articles ON logs.type IN ('art','evt') AND logs.id = articles.id_article
+LEFT JOIN spip_forum    as forum    ON logs.type = 'cmp' AND logs.id = forum.id_forum
+LEFT JOIN spip_articles as fart     ON logs.type = 'cmp' AND forum.id_article = fart.id_article
+LEFT JOIN spip_auteurs as auteurs ON logs.id_auteur = auteurs.id_auteur
+    WHERE DATEDIFF( NOW(), logs.instant) <= 30
+ ORDER BY logs.instant DESC";
+
+$result = spip_query($query);
+echo '<ul class="historique">'."\n";
+while ($row = spip_fetch_array($result,MYSQL_ASSOC)) 
+{
+    $line  = '<a href="'.$row["url"].'">';
+    $line .= strftime( "Le %d/%m à %H:%M", strtotime($row['instant']));
+    $line .= ", " . $row['nom'];
+
+    switch ($row['statut']) 
+    {
+    case 'accepte'  : $line .= " a accepté"           ; break;
+    case 'refuse'   : $line .= " a refusé"            ; break;
+    case 'prop'     : $line .= " a réinitialisé"      ; break;
+    case 'poubelle' : $line .= " a mis à la poubelle" ; break;
+    case 'publie'   : $line .= " a validé"            ; break;
+    case 'debat'    : $line .= " a mis en débat"      ; break;
+    }
+
+    $tt = array( "art" => 'l\'article', "evt" => 'l\'évènement', "cmp" => "le complément" );
+
+
+    $line .= " " . $tt[$row['type']];
+
+    if( $row["desc"] && $row["desc"] != "") $line .= ' <i>'.$row["desc"].'</i></a>';
+    else  $line .= ' <i>'.$row["id"].'</i></a>';
+
+    echo "<li>".$line."</li>\n";
+
+}
+echo "</ul>\n";
+}
+?>

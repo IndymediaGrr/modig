@@ -1,0 +1,11 @@
+<p class="quiquoi">#ENV*{parqui}</p>
+<form action="spip.php" method="post" enctype="multipart/form-data">
+   <input type="hidden" name="action" value="moderer">
+   <input type="hidden" name="id_forum" value="#ENV*{id_forum}">
+   <input type="hidden" name="modo_type" value="cmp">
+
+   <div id="form_commentaire-#ENV*{id_forum}">
+      <INCLURE{fond=formulaires/inc-mode-forum-bts}{statut}>
+   </div>
+</form>
+

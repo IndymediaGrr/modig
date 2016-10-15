@@ -1,0 +1,169 @@
+Documentation expresse
+
+##############################################
+ 
+ * 2008-02-25 : première version
+ * 2009-04-25 : ajout de la création de la table logs_mode
+
+##############################################
+
+Plan :
+
+   A. Instalation
+
+   B. Formulaires pour poster
+
+      1/ Inclusion dans un squelettes
+      2/ Questions mystères
+      3/ Les auteurs
+      4/ Portées (cela ne concerne que les articles)
+      5/ Thèmes (cela ne concerne que les articles)
+
+   C. Formulaires pour modérer
+
+      1/ Articles et événements
+      2/ Compléments d'information
+
+   D. Modification de Spip
+
+
+
+
+Le plugin modig est encore en développement. Des personnes veulent bien
+participer à son ouverture (aka, rendre optionnelle les spécificités des
+collectif, et documenter le tout). D'autre part, il marche avec les versions
+1.9.* de spip et nous avons prévu de l'adapter a Spip 2.x . Mais étant donné le
+jeune âge de ce dernier, Nous avons fait le choix de ne pas le faire pour
+l'instant. 
+
+Hormis différentes petites choses non abordées ici, il y a deux choses
+principales dans ce plugin. Premièrement les formulaires pour permettre à
+quiconque de poster des contributions. Deuxièmement des formulaires pour
+permettre la modération dans la partie publique.
+
+A. Instalation / Mise à jour
+============================
+
+Pour les mises à jour voir le fichier UPGRADE
+
+1/ plugin CFG
+
+Ce plugin nécéssite le plugin CFG. Il se trouve ici :
+
+   http://files.spip.org/spip-zone/cfg.zip
+
+Il faut également configurer modig sur la page suivante :
+
+   /ecrire/?exec=cfg&cfg=modig
+
+2/ Création de la table logs_mode 
+
+    CREATE TABLE `logs_mode` (
+        `instant` timestamp NOT NULL default CURRENT_TIMESTAMP,
+        `type` varchar(20) NOT NULL,
+        `id` bigint(21) NOT NULL,
+        `id_auteur` bigint(21) NOT NULL,
+        `statut` varchar(10) NOT NULL,
+        `desc` text default NULL
+        );
+
+
+B. Formulaires pour poster
+==========================
+
+Le plugin modig fournis trois formulaires pour poster article, événement ou
+complément d'information. Les articles et les événements sont des articles au
+sens de spip. Les complément d'information sont des forums.
+
+
+1/ Inclusion dans un squelette
+
+Les articles ou événements sont postés dans une rubrique dont l'identifiant est
+récupérée dans l'environnement du formulaire. Exemple :
+
+      <BOUCLE_rubart(RUBRIQUES){titre_mot=blalbla}>
+      #FORMULAIRE_PROPOSER_ARTICLE
+      </BOUCLE_rubart>
+
+Les formulaires utilisent une feuille de style spécifique dont l'url est
+
+      [(#CHEMIN{formulaires/css/barreoutils.css}|direction_css)]
+
+Cette dernière est à inclure dans les pages contenant des formulaires.
+
+
+2/ Questions mystères
+
+Pour poster un article, il faut répondre à une question mystère. Cela permet
+d'éviter la plupart des spams. Les questions mystères sont choisies au hasard
+parmis les articles de la rubrique choisie dans la configuration. Le titre de
+l'article correspond à la réponse de la question, le contenu à la question
+elle-même. Il est envisageable de rendre ce mot clé configurable... 
+
+Voir la fonction modig_antispam_id() dans le fichier modig_fonctions.php.  
+
+
+3/ Les auteurs
+
+Les auteurs des articles sont des auteurs spip, un auteur par article est crée
+avec les informations fournies (pseudo et mail). Le statut de ces auteurs est
+«999anonyme», ils n'ont aucun droits dans spip...
+
+
+4/ Portées (cela ne concerne que les articles)
+
+Les articles sont rangés par portée. C'est le système de mot clé de spip qui
+est utilisé pour faire ça. Le groupe de mot clé concerné est «portees». Il doit
+être présent et une portée par defaut doit être choisie (dans la page de
+configuration).
+
+
+5/ Thèmes (cela ne concerne que les articles)
+
+Des thèmes peuvent être affectés aux articles. C'est le système de mot clé de spip qui
+est utilisé pour cela. Le groupe de mot clé est «themes». Les articles ont toujours un
+thème qui par défaut est celui défini dans la page de configuration.
+
+
+C. Formulaires pour modérer
+==========================
+
+
+1/ Articles et événements
+
+Le plugin modig considère deux nouveaux statuts aux articles spip : 
+- «debat» signifie que l'article est en débat
+- «accepte» signifie que l'article a été accepté une fois
+
+Le schéma de modération se trouve dans le fichier action/moderer.php
+
+La balise MODE_CONTRIB permet de modérer un article ou un événement, elle
+récupère l'identifiant de l'article spip dans l'environnement. De plus, il est
+nécessaire de lui dire si c'est un article ou un événement que l'on veut
+modérer.
+
+      <BOUCLE_art(ARTICLES){ ... }>
+      [(#MODE_CONTRIB{'article'})]
+      </BOUCLE_art>
+
+      <BOUCLE_art(ARTICLES){ ... }>
+      [(#MODE_CONTRIB{'agenda'})]
+      </BOUCLE_art>
+
+2/ Compléments d'information
+
+La modération des compléments d'information est prévue «a priori»
+
+      <BOUCLE_complement(FORUMS){ ... }>
+      [(#MODE_COMMENTAIRE)]
+      </BOUCLE_complement>
+
+
+
+D. Changements futurs
+=====================
+
+
+1/ Passer à SPIP 2
+
+  - gérer les histoires de lieux déjà connus

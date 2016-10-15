@@ -1,0 +1,12 @@
+<p class="quoiquoi">#ENV*{parqui}</p>
+<form action="#SELF" method="post" enctype="multipart/form-data">
+   <textarea name="chapo" rows="3" cols="40">#ENV*{chapo}</TEXTAREA>
+   <input type="hidden" name="id_article" value="#ENV*{id_article}"/>
+   <input type="hidden" name="modo_type" value="evt"/>
+   <input type="hidden" name="action" value="moderer"/>
+
+   
+   <INCLURE{fond=formulaires/inc-mode-bts}{statut}>
+
+</form>
+

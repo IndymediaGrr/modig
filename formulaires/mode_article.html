@@ -1,0 +1,87 @@
+<script type="text/javascript">
+var _affthemes = false;
+
+function affcachthemes()
+{
+   _affthemes = ! _affthemes;
+   e = document.getElementById("modo_form_atheme");
+
+   if( _affthemes )
+   {
+      e.innerHTML = "[ - ]";
+   }
+   else
+   {
+      e.innerHTML = "[ + ]";
+   }
+
+   f = document.getElementById('modo_form');
+
+   for (i=0; i< f["themes[]"].length; i++)
+   {
+      ce = f["themes[]"][i];
+      de = document.getElementById('divtheme_' + ce.value);
+      if (_affthemes || ce.checked==true)
+      {
+         de.style.display  = 'block';
+      }
+      else
+      {
+         de.style.display  = 'none';
+      }
+   }
+}
+</script>
+<p class="quiquoi">#ENV*{parqui}</p>
+<form id="modo_form" action="#SELF" method="post" enctype="multipart/form-data">
+   <textarea name="chapo" rows="3" cols="40">#ENV*{chapo}</textarea>
+   <fieldset class="field-group">
+      <legend>Thèmes <a id="modo_form_atheme" href="javascript:affcachthemes()" title="Afficher / cacher les thèmes non sélectionnés">[ + ]</a></legend>
+      <div>
+         <BOUCLE_themes(MOTS) {type=themes} {par titre}>
+
+         <BOUCLE_them_article(MOTS) {id_article}{titre=#TITRE}>
+         </BOUCLE_them_article>
+         <div id="divtheme_#TITRE" style="width: 50%; float: left">
+            <input type="checkbox" id="mot_#ID_MOT" name="themes[]" value="#TITRE" checked="checked"/>
+            <label for="mot_#ID_MOT">#TITRE</label>
+         </div>
+         </B_them_article>
+         <div id="divtheme_#TITRE" style="width: 50%; float: left;display:none;">
+            <input type="checkbox" id="mot_#ID_MOT" name="themes[]" value="#TITRE"/>
+            <label for="mot_#ID_MOT">#TITRE</label>
+         </div>
+         <//B_them_article>
+         </BOUCLE_themes>
+      </div>
+   </fieldset>
+   <fieldset class="field-group">
+      <legend>Portée</legend>
+      <div>
+         <BOUCLE_portees(MOTS) {type=portees} {par titre}>
+         <BOUCLE_port_article(MOTS) {id_article}{titre=#TITRE}>
+         </BOUCLE_port_article>
+         <div style="width: 15em; float: left">
+            <input type="radio" id="mot_#ID_MOT" name="portees[]" value="#TITRE" checked="checked"/>
+            <label for="mot_#ID_MOT">#TITRE</label>
+         </div>
+         </B_port_article>
+         <div style="width: 15em; float: left;">
+            <input type="radio" id="mot_#ID_MOT" name="portees[]" value="#TITRE"/>
+            <label for="mot_#ID_MOT">#TITRE</label>
+         </div>
+         <//B_port_article>
+         </BOUCLE_portees>
+         <br style="clear:both">
+      </div>
+   </fieldset>
+
+   <input type="hidden" name="id_article" value="#ENV*{id_article}"/>
+   <input type="hidden" name="modo_type" value="art"/>
+   <input type="hidden" name="action" value="moderer"/>
+   
+   <input type="submit" name="maj"      value="Mise à jour thèmes et portée"/>
+   <INCLURE{fond=formulaires/inc-mode-bts}{statut}>
+
+</form>
+

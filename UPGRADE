@@ -1,0 +1,18 @@
+
+=== De 3.0.3 à 3.0.4
+
+ * Ajout du plugin cfg
+
+   - installer le plugin cfg : http://files.spip.org/spip-zone/cfg.zip
+   - configurer le plugin modig : /ecrire/?exec=cfg&cfg=modig
+
+ * Changement de la base de données :
+
+   alter table logs_mode add `instant` timestamp not null default CURRENT_TIMESTAMP;
+   alter table logs_mode change column id_article id BIGINT(21) ;
+   alter table logs_mode add type varchar(20) NOT NULL;
+   alter table logs_mode add `desc` text;
+   alter table logs_mode drop column `ordre`;
+
+   update logs_mode set type = 'art' where id IN (select id_article from spip_articles where id_rubrique = 4);
+   update logs_mode set type = 'evt' where id IN (select id_article from spip_articles where id_rubrique = 11);

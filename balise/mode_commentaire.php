@@ -1,0 +1,83 @@
+<?php
+
+/* Test de sécurité
+ */
+
+if (!defined("_ECRIRE_INC_VERSION")) return;
+
+/* Les includes de spip utilisé dans cette balise
+ */
+include_spip('inc/texte');
+include_spip('inc/lang');
+include_spip('inc/mail');
+include_spip('inc/date');
+include_spip('inc/meta');
+include_spip('inc/session');
+include_spip('inc/filtres');
+include_spip('inc/acces');
+include_spip('inc/documents');
+include_spip('inc/ajouter_documents');
+include_spip('inc/getdocument');
+include_spip('inc/barre');
+include_spip('base/abstract_sql');
+
+include_spip('inc/presentation');
+include_spip('inc/texte');
+include_spip('inc/actions');
+include_spip('inc/autoriser');
+
+include_spip('inc/modig');
+
+spip_connect();
+//charger_generer_url();
+//SPIP 2.0
+
+generer_url_entite(_request('id_article'), "article"); 
+
+
+function balise_MODE_COMMENTAIRE ($p) {
+
+  $p = calculer_balise_dynamique($p,'MODE_COMMENTAIRE',array('id_forum'));
+	return $p;
+}
+
+function balise_MODE_COMMENTAIRE_stat($args, $filtres) {
+
+	return ($args);
+}
+
+function balise_MODE_COMMENTAIRE_dyn($id_forum)
+{
+
+   if ($GLOBALS['auteur_session']['statut']=='0minirezo')
+   {
+
+     /* SPIP 2.0
+      $s = spip_abstract_fetsel(
+         array("statut"),
+			array("spip_forum"),
+			array("id_forum = " . _q($id_forum) . " "),
+			"",
+			array(),
+			1);
+     
+     */
+     $s = sql_fetsel("statut","spip_forum","id_forum = " . sql_quote($id_forum)); 
+      $statut = $s['statut'];
+     
+    
+      $parqui = quoi_par_qui_cmp($id_forum);
+
+      $data = array(
+         'id_forum' => $id_forum,
+         'statut_nouv'=> entites_html(stripslashes(_request('statut_nouv'))),
+         'statut'     => $statut,
+         'parqui'     => $parqui
+
+      );
+
+      return array('formulaires/mode_forum', 0, $data);
+   }
+}
+
+?>

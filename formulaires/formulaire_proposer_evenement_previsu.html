@@ -1,0 +1,24 @@
+#CACHE{86400}
+<fieldset class="previsu">
+   <legend>Prévisualisation</legend>
+   <div class="evenement previsu">
+      <div class="cartouche">
+         <p class="titre-principal titre">#TITRE</p>
+
+         <p class="date-auteur">
+         <span class="auteurE">[par (#ENV{nom}|sinon{"anonyme"}) [&lt;(#ENV{email}|replace{@,' (a) '})&gt;]]</span>
+         </p>
+
+         <div class="lieu">
+            [Où : (#ENV{autre_lieu})]
+         </div>
+
+         [<p>Quand : (#ENV*{mysql_date}|nom_jour) [(#ENV*{mysql_date}|affdate)][(#ENV*{mysql_date}|secondes|!={05}|?{[&nbsp;à (#ENV*{mysql_date}|heures):[(#ENV*{mysql_date}|minutes)]],', toute la journée'})]</p>]
+      </div>
+
+      <div class="texte">[(#TEXTE|image_reduire{800,0})]</div>
+      [<div class="notes">(#NOTES)</div>]
+
+   
+   </div>
+</fieldset>

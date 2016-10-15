@@ -1,0 +1,11 @@
+
+
+<BOUCLE_portee(MOTS){titre IN #ENV**{portees}}>
+
+<input type="hidden" name="portees[]" value="#TITRE" id="mot_#ID_MOT" />
+</BOUCLE_portee>
+
+<BOUCLE_theme(MOTS){titre IN #ENV**{themes}}>
+<input type="hidden" name="themes[]" value="#TITRE" id="mot_#ID_MOT"/>
+
+</BOUCLE_theme>

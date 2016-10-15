@@ -1,0 +1,33 @@
+<div id="submit-buttons">
+   [(#ENV*{statut}|=={'prop'}|?{
+   <input type="submit" name="accepter"      value="Accepter"/>
+   <input type="submit" name="refuser"       value="Refuser"/>
+   <input type="submit" name="debattre"      value="Mettre à débattre"/>
+   <input type="submit" name="corbeiller"    value="Mettre à la corbeille"/>
+   })] 
+   [(#ENV*{statut}|=={'debat'}|?{
+   <input type="submit" name="accepter"      value="Accepter"/>
+   <input type="submit" name="refuser"       value="Refuser"/>
+   <input type="submit" name="reinitialiser" value="Réinitialiser"/>
+   <input type="submit" name="corbeiller"    value="Mettre à la corbeille"/>
+   })] 
+   [(#ENV*{statut}|=={'accepte'}|?{
+   <input type="submit" name="accepter"      value="Accepter"/>
+   <input type="submit" name="refuser"       value="Refuser"/>
+   <input type="submit" name="reinitialiser" value="Réinitialiser"/>
+   <input type="submit" name="corbeiller"    value="Mettre à la corbeille"/>
+   })] 
+   [(#ENV*{statut}|=={'refuse'}|?{
+   <input type="submit" name="reinitialiser" value="Réinitialiser"/>
+   <input type="submit" name="corbeiller"    value="À corbeiller"/>
+   })] 
+   [(#ENV*{statut}|=={'publie'}|?{
+   <input type="submit" name="reinitialiser" value="Réinitialiser"/>
+   <input type="submit" name="corbeiller"    value="Mettre à la corbeille"/>
+   })] 
+   [(#ENV*{statut}|=={'poubelle'}|?{
+   <input type="submit" name="reinitialiser" value="Réinitialiser"/>
+   <input type="submit" name="corbeiller"    value="Mettre à la corbeille"/>
+   })] 
+</div>
+

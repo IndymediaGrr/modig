@@ -1,0 +1,53 @@
+<script type="text/javascript">
+<!--
+function insererDoc(id,uri)
+{
+   barre_inserer('<doc'+id+'>', document.getElementById('texte_area'));
+   return false;
+}
+
+function lierDoc(id,uri)
+{
+   barre_inserer('['+uri+'->doc'+id+']', document.getElementById('texte_area'));
+   return false;
+}
+// -->
+</script>
+
+
+
+ 
+<div class="normal-file-submit">
+   <p class="aide">Pour insérer un document, sélectionner un fichier présent sur votre ordinateur et envoyer le en cliquant sur joindre. Ensuite, il est possible d'insérer un lien vers ce document en cliquant sur insérer. Si un document n'est pas inséré, il apparaîtra comme document joint.</p>
+   <input id="doc" name="doc" type="file" class="fondl" lang="fr" size="15" /> puis
+   <input class='ajax' name="ajout-fichier" type="submit" value="Joindre" />
+</div>
+<B_documents>
+<div class="documents">
+   <ul>
+     <!-- tous permet de ne pas filtrer sur les elements publies-->
+     <BOUCLE_documents(DOCUMENTS){id_article=#ENV*{id_article}} {tous}>
+     <li class="document">
+     <span class="nom">
+     [(#FICHIER|basename)]
+     </span>
+
+
+     <span class="actions">
+     <a href="#" onclick="lierDoc(#ID_DOCUMENT,'[(#FICHIER|basename)]');return false;" alt="#TITRE">[insérer un lien]</a>
+     <a href="#" onclick="insererDoc(#ID_DOCUMENT,'[(#FICHIER|basename)]');return false;" alt="#TITRE">[insérer le document]</a>
+
+   </span>
+   </li>
+
+   </BOUCLE_documents>
+    
+
+
+
+						       
+
+ </ul>
+</div>
+</B_documents>
+

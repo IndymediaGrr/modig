@@ -1,0 +1,42 @@
+
+<fieldset class="previsu">
+   <legend>Pr&eacute;visualisation</legend>
+   <div class="article previsu">
+
+      [(#REM) cartouche]
+      <div class="cartouche">
+
+         <p class="titre-principal titre">#TITRE</p>
+
+         <p class="date-auteur">
+         <span class="date">[(#DATE|nom_jour)] [(#DATE|jour)] [(#DATE|nom_mois)] [(#DATE|annee)]</span>
+         <span class="auteurE">[par (#ENV{nom}|sinon{"anonyme"}) [&lt;(#ENV{email}|replace{@,' (a) '})&gt;]]</span>
+         </p>
+
+        <span class="themes"><BOUCLE_themes_article(MOTS){id_article}>[<a href="#URL_MOT">#TITRE</a>] </BOUCLE_themes_article></span>
+
+
+      </div>
+      [<div class="texte">(#TEXTE|image_reduire{400,0})</div>]
+      [<div class="notes">(#NOTES)</div>]
+
+      [(#REM) Autres documents joints a l'article ]
+      <B_documents_joints>
+      <div id="documents_joints">
+         <h3><:titre_documents_joints:></h3>
+         <ul>
+            <BOUCLE_documents_joints(DOCUMENTS) {id_article} {par num titre, date} {doublons}>
+            <li>
+            <div class="spip_doc_titre"><a href="#URL_DOCUMENT" title="<:bouton_telecharger:>" type="#MIME_TYPE">[(#FICHIER|basename|sinon{<:info_document:>})]</a> <small>(#TYPE_DOCUMENT[ - (#TAILLE|taille_en_octets)])</small></div>
+            [<div class="spip_doc_descriptif">(#DESCRIPTIF)</div>]
+            </li>
+            </BOUCLE_documents_joints>
+         </ul>
+      </div>
+      </B_documents_joints>
+      <br class="nettoyeur" />
+
+
+      <br class="nettoyeur" />
+   </div>
+</fieldset>

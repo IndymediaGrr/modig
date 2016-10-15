@@ -1,0 +1,52 @@
+<?php
+
+/* Test de sécurité
+ */
+
+if (!defined("_ECRIRE_INC_VERSION")) return;
+
+/* Les includes de spip utilisé dans cette balise
+ */
+include_spip('inc/texte');
+include_spip('inc/lang');
+include_spip('inc/mail');
+include_spip('inc/date');
+include_spip('inc/meta');
+include_spip('inc/session');
+include_spip('inc/filtres');
+include_spip('inc/acces');
+include_spip('inc/documents');
+include_spip('inc/ajouter_documents');
+include_spip('inc/getdocument');
+include_spip('inc/barre');
+include_spip('base/abstract_sql');
+
+spip_connect();
+//SPIP 2.0 
+
+if(defined('_SPIP19300')) {
+  generer_url_entite(_request('id_article'), "article"); 
+ }
+ else {
+   charger_generer_url();
+ }
+
+
+include_spip('modig_fonctions');
+
+/*
+ * Cette fonction renvoi le statut d'un article
+ *
+ * TODO il serait peut-être bien de la rajouter le support des forums (a voir).
+ */
+function balise_STATUT_ARTICLE($p)
+{
+
+   $_id_article = champ_sql('id_article', $p);
+   $p->code = 'modig_calculer_statut("articles",'. $_id_article.' )';
+   $p->statut = 'php';
+
+   return $p;
+}
+
+?>

@@ -1,0 +1,22 @@
+
+
+	  [
+	  <input type="hidden" id="id_article" name="id_article" value="(#ENV*{new_id_article})"/>]
+
+	 
+	  <input type='hidden' name='titre' value="#ENV{titre}" />
+	  <input type='hidden' name='texte' value="#ENV{texte}" />
+	  <input type='hidden' name='url_site' value="#ENV{url_site}" />
+	  <input type='hidden' name='nom_site' value="#ENV{nom_site}" />
+	  <input type='hidden' name='antispam' value="#ENV{antispam}" />
+
+          <input class="nom" type="hidden" name="nom" id="nom"  value="[(#ENV*{nom})]" />
+          <input type="hidden" name="email" id="email"  value="[(#ENV*{email})]" />
+
+
+[
+<INCLURE{fond="formulaires/inc-article-ajouter-mot"}{env}>
+	  (#ENV*{erreurs}|table_valeur{previsu})
+	<input type="submit" class="submit" name="valider" value="Publier l'article" />
+	
+]	

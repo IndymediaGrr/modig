@@ -1,0 +1,34 @@
+
+[(#REM) pour IE qui sinon se perd dans l'ajax !, ne pas retirer]<br class='bugajaxie' />
+
+
+
+[(#ENV*{message_ok})]
+
+[
+<form  action="#ENV{action}#formulaire_proposer_article" method="post">
+	<div>
+	  #ACTION_FORMULAIRE{#ENV{action}}
+
+	  <INCLURE{fond=formulaires/inc-previsu-article}{env} />
+	</div>
+	</form>
+
+	<form  class="openpublishing" action="#ENV{action}#formulaire_proposer_article" method="post" enctype="multipart/form-data">
+	#ACTION_FORMULAIRE{#ENV{action}}
+
+
+
+	[<div id="erreur" class="erreur">(#ENV*{message_erreur})</div>]
+
+	
+
+	<INCLURE{fond=formulaires/inc-form-article}{env}/>
+	
+
+
+    
+</form>
+
+	(#ENV{editable})
+]

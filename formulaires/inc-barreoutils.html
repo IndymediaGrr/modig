@@ -1,0 +1,37 @@
+
+<script type="text/javascript" src="[(#CHEMIN{javascript/spip_barre.js})]"></script>
+  
+<div id="toolbar" style="width: 97%;">
+   <a id="toolbar.italic" class="opEditorIcon opEditorIconItalic" title="Mettre en {italic} (emphase)"
+      href="javascript:barre_raccourci('{', '}', document.getElementById('#ENV{champs-id}'));" ></a>
+   <a id="toolbar.bold" class="opEditorIcon opEditorIconBold" title="Mettre en {{gras}} (emphase forte)"
+      href="javascript:barre_raccourci('{{', '}}', document.getElementById('#ENV{champs-id}'));"></a>
+   <a id="toolbar.subtitle" class="opEditorIcon opEditorIconSubtitle" title="Transformer en {{{intertitre}}}"
+      href="javascript:barre_raccourci('{{{', '}}}', document.getElementById('#ENV{champs-id}'));"></a>
+   <span></span>
+   <a id="toolbar.createLink" class="opEditorIcon opEditorIconCreateLink" title="Transformer en [lien hypertexte->http://..]"
+      href="javascript:barre_demande('[', '->', ']', 'Veuillez indiquer l\'adresse de votre lien :', document.getElementById('#ENV{champs-id}'));"></a>
+   <a id="toolbar.footnote" class="opEditorIcon opEditorIconFootnote" title="Transformer en [[Note de bas de page]]"
+      href="javascript:barre_raccourci('[[', ']]', document.getElementById('#ENV{champs-id}'));"></a>
+   <a id="toolbar.quote" class="opEditorIcon opEditorIconQuote" title="Transformer en &lt;quote&gt;Citation&lt;/quote&gt;"
+      href="javascript:barre_raccourci('\n\n&lt;quote&gt;', '&lt;/quote&gt;\n\n', document.getElementById('#ENV{champs-id}'));"></a>
+   <span></span>
+   <a id="toolbar.guillemets" class="opEditorIcon opEditorIconGuillemets" title="Entourer de &laquo;&nbsp;guillemets&nbsp;&raquo;"
+      href="javascript:barre_raccourci('&laquo;&nbsp;', '&nbsp;&raquo;', document.getElementById('#ENV{champs-id}'));"></a>
+   <a id="toolbar.guillemetsSimples" class="opEditorIcon opEditorIconGuillemetsSimples" title="Entourer de &ldquo;guillemets de second niveau&rdquo;"
+      href="javascript:barre_raccourci('&ldquo;', '&rdquo;', document.getElementById('#ENV{champs-id}'));"></a>
+   <a id="toolbar.pointMedian" class="opEditorIcon opEditorIconPointMedian" title="Insérer un point médian"
+      href="javascript:barre_inserer('&#183;', document.getElementById('#ENV{champs-id}'));"></a>
+   <a id="toolbar.aGraveMaj" class="opEditorIcon opEditorIconAGraveMaj" title="Insérer un A accent grave majuscule"
+      href="javascript:barre_inserer('&Agrave;', document.getElementById('#ENV{champs-id}'));"></a>
+   <a id="toolbar.eAiguMaj" class="opEditorIcon opEditorIconEAiguMaj" title="Insérer un E accent aigu majuscule"
+      href="javascript:barre_inserer('&Eacute;', document.getElementById('#ENV{champs-id}'));"></a>
+   <a id="toolbar.oELig" class="opEditorIcon opEditorIconOELig" title="Insérer un E dans l'O"
+      href="javascript:barre_inserer('&oelig;', document.getElementById('#ENV{champs-id}'));"></a>
+   <a id="toolbar.oELigMaj" class="opEditorIcon opEditorIconOELigMaj" title="Insérer un E dans l'O majuscule"
+      href="javascript:barre_inserer('&OElig;', document.getElementById('#ENV{champs-id}'));"></a>
+   <a id="toolbar.euro" class="opEditorIcon opEditorIconEuro" title="Insérer le symbol &euro;"
+      href="javascript:barre_inserer('&euro;', document.getElementById('#ENV{champs-id}'));"></a>
+   <a id="toolbar.retour" class="opEditorIcon opEditorIconRightToLeft" title="Insérer un retour à la ligne (_ )"
+      href="javascript:barre_inserer('\n_ ', document.getElementById('#ENV{champs-id}'));"></a>
+</div>

@@ -1,0 +1,54 @@
+<plugin>
+    <nom>modig</nom>
+    <version>3.1.0</version>
+    <etat>stable</etat>
+    <auteur></auteur>
+    <description>
+        {{Plugin de facilitation à la moderation.}} <br />
+
+        Ce plugin rajoute deux états aux articles (en débat et accepté un
+        fois). Il considère les articles de la rubrique agenda comme des
+        everement.
+
+        Il propose également des formulaires pour poster des articles ou des
+        évenements et pour modérer ces derniers.
+
+        Si vous avez cfg: [Configuration->.?exec=cfg&amp;cfg=modig]
+    </description>
+    <prefix>modig</prefix>
+
+    <pipeline>
+        <nom>ajouter_boutons</nom>
+        <action>ajouterBouton</action>
+        <inclure>modig_pipeline.php</inclure>
+    </pipeline>
+    <pipeline>
+        <nom>ajouter_onglets</nom>
+        <action>ajouterOnglets</action>
+        <inclure>modig_pipeline.php</inclure>
+    </pipeline>
+    <pipeline>
+        <nom>header_prive</nom>
+        <action>headerPrive</action>
+        <inclure>modig_pipeline.php</inclure>
+    </pipeline>
+    <pipeline>
+        <nom>post_edition</nom>
+        <action>postEdition</action>
+        <inclure>modig_pipeline.php</inclure>
+    </pipeline>
+    <pipeline>
+        <nom>taches_generales_cron</nom>
+        <action>taches_generales_cron</action>
+        <inclure>modig_pipeline.php</inclure>
+    </pipeline>
+    <pipeline>
+        <nom>affichage_final</nom>
+        <action>require_https</action>
+        <inclure>modig_pipeline.php</inclure>
+    </pipeline>
+
+    <fonctions>
+        modig_fonctions.php
+    </fonctions>
+</plugin>

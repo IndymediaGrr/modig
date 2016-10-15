@@ -1,0 +1,43 @@
+#CACHE{86400}
+
+[(#REM) pour IE qui sinon se perd dans l'ajax !, ne pas retirer]<br class='bugajaxie' />
+
+
+
+[(#ENV*{message_ok})]
+[
+<form  action="#ENV{action}#formulaire_proposer_evenement" method="post">
+	<div>
+	  #ACTION_FORMULAIRE{#ENV{action}}
+	  [
+	  <input type="hidden" id="id_article" name="id_article" value="(#ENV*{new_id_article})"/>]
+
+	  <INCLURE{fond=formulaires/inc-previsu-evenement}{env} />
+	</div>
+
+
+
+
+    
+</form>
+
+
+<form id="formulaire" class="openpublishing" action="#ENV{action}#formulaire_proposer_evenement" method="post" name="formulaire_proposer_evenement" enctype="multipart/form-data">
+	#ACTION_FORMULAIRE{#ENV{action}}
+
+
+
+	[<p class='message_erreur'>(#ENV*{message_erreur})</p>]
+
+	
+
+	<INCLURE{fond=formulaires/inc-form-evenement}{env}/>
+
+
+
+
+
+</form>
+
+	(#ENV{editable})
+]

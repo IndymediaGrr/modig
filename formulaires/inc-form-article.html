@@ -1,0 +1,72 @@
+<div id="form_doctheme" class="field-group">
+
+  <fieldset>
+  <legend>Type d'article</legend>
+  <BOUCLE_portees(MOTS) {type=portees} {par titre}>
+      <input type="radio" id="mot_#ID_MOT" name="portees[]" value="#TITRE"
+           [(#ENV*{portees}|filtre_contient{#TITRE})checked="checked"] />
+           <label for="mot_#ID_MOT">#TITRE</label>
+  </BOUCLE_portees>
+  <br class="nettoyeur" />
+  </fieldset>
+  <fieldset>
+            <legend>Thème(s) associé(s)</legend>
+            <p class="aide">Pour sélectionner plusieurs thèmes, maintenir appuyée la touche «&nbsp;Control&nbsp;» du clavier.</p>
+                <select multiple="multiple" name="themes[]" style="width:100%" size="22" >
+		  <BOUCLE_themes(MOTS) {type=themes} {par titre}>
+                        <option id="mot_#ID_MOT" [(#ENV*{themes}|filtre_contient{#TITRE})selected="selected"]>#TITRE</option>
+                    </BOUCLE_themes>
+                </select>
+		</fieldset>
+       <fieldset style="text-align:right">
+            <legend>Identification [optionnelle]</legend>
+            <label for="nom">Auteur·e&nbsp;:</label>
+            <input class="nom" type="text" name="nom" id="nom" size="12" value="[(#ENV*{nom})]"
+            /><br/>
+            <label for="email">Email&nbsp;:</label>
+            <input type="text" name="email" id="email" size="12" value="[(#ENV*{email})]" />
+        </fieldset>
+      </div>
+      <div id="form_contenu" class="field-group"> 
+        <fieldset>
+            <legend>Contenu</legend>
+            <label>Titre :</label>
+	[<span id="erreur" class="erreur">(#ENV**{erreurs}|table_valeur{titre_article})</span>]
+	
+	<input type="text" name="titre" [value="(#ENV{titre})"] style="width:88%"/>
+            <div id="op-textearea">
+	      	[<span id="erreur" class="erreur">(#ENV**{erreurs}|table_valeur{texte_article})</span>]
+                <INCLURE{fond=formulaires/inc-barreoutils}{champs-id='texte_area'}>
+                <textarea id="texte_area" name="texte"  rows="20" cols="60" style="width: 97%;"
+                    onselect="storeCaret(this);" onclick="storeCaret(this);"
+                    onkeyup="storeCaret(this);">[(#ENV**{texte})]</textarea>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Document(s) joint(s)</legend>
+	[<span id="erreur" class="erreur">(#ENV**{erreurs}|table_valeur{document})</span>]
+
+	    <div id="form-documents">
+                <INCLURE{fond=formulaires/documents}{id_article=#ENV{id_article}}>
+            </div>
+        </fieldset>
+        <fieldset>    
+            <legend>Pour éviter les robots</legend>
+	    [<span id="erreur" class="erreur">(#ENV**{erreurs}|table_valeur{antispam})</span>]
+	    <INCLURE{fond=formulaires/inc-antispam}{antispam}{antispam_id}>
+        </fieldset>
+     </div>
+		 
+
+
+     <div class="block-pied" style="text-align: center;">
+        [
+       <input type="hidden" id="id_article" name="id_article" value="(#ENV*{new_id_article})"/>]
+        <input type="hidden" id="id_auteur" name="id_auteur" value="[(#ENV**{id_auteur})]"/>
+        <input type="hidden" name="url_site" value="[(#URL_SITE_SPIP)]"/>
+
+        <div id="submit-buttons">
+            <input type="submit" id="previsualiser" name="previsualiser" value="Prévisualiser" />
+           <!-- <input type="submit" class="button-ok" id="valider" name="valider" value="Publier" />-->
+        </div>
+</div>

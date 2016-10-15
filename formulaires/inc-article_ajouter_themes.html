@@ -1,0 +1,10 @@
+c'est ici
+<BOUCLE_portee(MOTS){id_mot IN #ENV{portees}}>
+portee
+<input type="hidden" name="portees[]" value="#ID_MOT" />
+</BOUCLE_portee>
+
+<BOUCLE_theme(MOTS){id_mot IN #ENV{themes}}>
+<input type="hidden" name="themes[]" value="#ID_MOT" />
+
+</BOUCLE_theme>
