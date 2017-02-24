@@ -36,7 +36,7 @@ function modig_calculer_statut($type,$id_objet)
       $row = spip_fetch_array($result); 
       return $row['statut']; */
      // SPIP 2.0
-     $row=sql_select("statut","spip_articles","id_article=".sql_quote($id_objet));
+     $row=sql_fetsel("statut","spip_articles","id_article=".sql_quote($id_objet));
      return $row['statut'];
       break;
 
@@ -46,7 +46,7 @@ function modig_calculer_statut($type,$id_objet)
       $row = spip_fetch_array($result);
      */
      // SPIP 2.0
-     $row = sql_select("statut","spip_forum","id_forum=".sql_quote($id_objet));
+     $row = sql_fetsel("statut","spip_forum","id_forum=".sql_quote($id_objet));
       return $row['statut'];
       break;
    }
